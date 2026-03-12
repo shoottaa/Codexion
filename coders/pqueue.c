@@ -27,7 +27,7 @@ t_pqueue	*pq_create(int capacity)
 	}
 	pqueue->size = 0;
 	pqueue->capacity = capacity;
-	pqueue->nodes = nodes;
+	pqueue->node = nodes;
 	return (pqueue);
 }
 
@@ -35,7 +35,7 @@ t_pqueue	*pq_destroy(t_pqueue *pqueue)
 {
 	if (pqueue)
 	{
-		free(pqueue->nodes);
+		free(pqueue->node);
 		free(pqueue);
 	}
 	return (NULL);
@@ -50,16 +50,16 @@ int	pq_push(t_pqueue *pqueue, t_coder *coder, long priority)
 
 	if (pqueue->size >= pqueue->capacity)
 		return (1);
-	pqueue->nodes[pqueue->size].coder = coder;
-	pqueue->nodes[pqueue->size].priority = priority;
+	pqueue->node[pqueue->size].coder = coder;
+	pqueue->node[pqueue->size].priority = priority;
 	pqueue->size++;
 	i = pqueue->size - 1;
-	while (i > 0 && pqueue->nodes[i].priority < pqueue->nodes[
+	while (i > 0 && pqueue->node[i].priority < pqueue->node[
 			(i - 1) / 2].priority)
 	{
-		tmp = pqueue->nodes[i];
-		pqueue->nodes[i] = pqueue->nodes[(i - 1) / 2];
-		pqueue->nodes[(i - 1) / 2] = tmp;
+		tmp = pqueue->node[i];
+		pqueue->node[i] = pqueue->node[(i - 1) / 2];
+		pqueue->node[(i - 1) / 2] = tmp;
 		i = (i - 1) / 2;
 	}
 	return (0);
@@ -75,16 +75,16 @@ void	pq_sift_down(t_pqueue *pqueue, int i)
 	while (2 * i + 1 < size)
 	{
 		smallest = 2 * i + 1;
-		if (2 * i + 2 < size && pqueue->nodes[2 * i + 2].priority
-			< pqueue->nodes[2 * i + 1].priority)
+		if (2 * i + 2 < size && pqueue->node[2 * i + 2].priority
+			< pqueue->node[2 * i + 1].priority)
 			smallest = 2 * i + 2;
-		if (pqueue->nodes[i].priority < pqueue->nodes[smallest].priority)
+		if (pqueue->node[i].priority < pqueue->node[smallest].priority)
 			break ;
 		else
 		{
-			tmp = pqueue->nodes[i];
-			pqueue->nodes[i] = pqueue->nodes[smallest];
-			pqueue->nodes[smallest] = tmp;
+			tmp = pqueue->node[i];
+			pqueue->node[i] = pqueue->node[smallest];
+			pqueue->node[smallest] = tmp;
 			i = smallest;
 		}
 	}
@@ -97,8 +97,8 @@ t_coder	*pq_pop(t_pqueue *pqueue)
 
 	if (pqueue->size == 0)
 		return (NULL);
-	coder = pqueue->nodes[0].coder;
-	pqueue->nodes[0] = pqueue->nodes[pqueue->size - 1];
+	coder = pqueue->node[0].coder;
+	pqueue->node[0] = pqueue->node[pqueue->size - 1];
 	pqueue->size--;
 	i = 0;
 	pq_sift_down(pqueue, i);

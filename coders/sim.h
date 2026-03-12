@@ -13,6 +13,7 @@
 #ifndef SIM_H
 # define SIM_H
 
+# include "types.h"
 # include <stdlib.h>
 
 int	init_sim(t_global *sim, char **argv);

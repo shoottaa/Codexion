@@ -13,6 +13,9 @@
 #ifndef PQUEUE_H
 # define PQUEUE_H
 
+# include "types.h"
+# include <stdlib.h>
+
 typedef struct s_pqueue_node
 {
 	t_coder	*coder;
