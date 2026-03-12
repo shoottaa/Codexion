@@ -13,6 +13,8 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+# include "pqueue.h"
+
 typedef struct s_args
 {
 	int	num_coders;
