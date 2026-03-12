@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "args.h"
-#include "types.h"
+#include "main.h"
 
 int	main(int argc, char **argv)
 {

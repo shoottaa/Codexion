@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dongle.h                                           :+:      :+:    :+:   */
+/*   coder.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egaudich <egaudich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 15:19:35 by egaudich          #+#    #+#             */
-/*   Updated: 2026/03/12 15:19:35 by egaudich         ###   ########.fr       */
+/*   Created: 2026/03/12 20:02:27 by egaudich          #+#    #+#             */
+/*   Updated: 2026/03/12 20:02:27 by egaudich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DONGLE_H
-# define DONGLE_H
+#ifndef CODER_H
+# define CODER_H
 
 # include "types.h"
 # include "log.h"
-# include <stdlib.h>
+# include "dongle.h"
 
-int		init_dongles(t_global *sim);
-int		destroy_dongles(t_global *sim);
-void	take_one_dongle(t_coder *coder, t_dongle *dongle);
-void	release_dongles(t_coder *coder);
-void	take_dongles(t_coder *coder);
+int		is_sim_active(t_global *sim);
+void	*coder_routine(void *arg);
 
 #endif

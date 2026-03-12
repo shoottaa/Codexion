@@ -13,6 +13,7 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+# include <pthread.h>
 # include "pqueue.h"
 
 typedef struct s_args

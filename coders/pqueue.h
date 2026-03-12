@@ -16,6 +16,8 @@
 # include "types.h"
 # include <stdlib.h>
 
+typedef struct s_coder	t_coder;
+
 typedef struct s_pqueue_node
 {
 	t_coder	*coder;
@@ -31,5 +33,8 @@ typedef struct s_pqueue
 
 t_pqueue	*pq_create(int capacity);
 t_pqueue	*pq_destroy(t_pqueue *pqueue);
+
+int		pq_push(t_pqueue *pqueue, t_coder *coder, long priority);
+t_coder	*pq_pop(t_pqueue *pqueue);
 
 #endif

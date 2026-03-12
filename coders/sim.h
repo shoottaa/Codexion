@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: egaudich <egaudich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 14:57:40 by egaudich          #+#    #+#             */
-/*   Updated: 2026/03/12 14:57:40 by egaudich         ###   ########.fr       */
+/*   Created: 2026/03/12 19:26:30 by egaudich          #+#    #+#             */
+/*   Updated: 2026/03/12 19:26:30 by egaudich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SIM_H
 
 # include "types.h"
-# include <stdlib.h>
 
 int	init_sim(t_global *sim, char **argv);
 
