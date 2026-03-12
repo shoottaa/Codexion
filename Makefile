@@ -14,11 +14,8 @@ NAME = codexion
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pthread
 SRCDIR = coders
-SRC = $(SRCDIR)/main.c \
-      $(SRCDIR)/args.c \
-      $(SRCDIR)/dongle.c \
-      $(SRCDIR)/pqueue.c \
-      $(SRCDIR)/sim.c
+SRC = $(wildcard $(SRCDIR)/*.c)
+HEADERS = $(wildcard $(SRCDIR)/*.h)
 OBJ = $(SRC:.c=.o)
 INCLUDES = -I$(SRCDIR)
 
@@ -27,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
