@@ -18,7 +18,6 @@
 # include "monitor.h"
 # include <stdlib.h>
 
-void	init_coders(t_global *sim);
 void	parse_args(t_args *args, char **argv);
 int		init_sim(t_global *sim, char **argv);
 

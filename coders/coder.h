@@ -20,5 +20,6 @@
 
 int		is_sim_active(t_global *sim);
 void	*coder_routine(void *arg);
+void	init_coders(t_global *sim);
 
 #endif
