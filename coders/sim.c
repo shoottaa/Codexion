@@ -13,6 +13,27 @@
 #include "args.h"
 #include "sim.h"
 
+static int	alloc_sim(t_global *sim)
+{
+	sim->coders = malloc(sizeof(t_coder) * sim->args.num_coders);
+	sim->dongles = malloc(sizeof(t_dongle) * sim->args.num_coders);
+	if (!sim->coders || !sim->dongles)
+	{
+		free(sim->coders);
+		free(sim->dongles);
+		return (1);
+	}
+	return (0);
+}
+
+static void	cleanup_sim(t_global *sim)
+{
+	destroy_dongles(sim);
+	free(sim->coders);
+	pthread_mutex_destroy(&sim->mutex_flag);
+	pthread_mutex_destroy(&sim->mutex_logging);
+}
+
 void	init_coders(t_global *sim)
 {
 	int	i;
@@ -54,14 +75,8 @@ int	init_sim(t_global *sim, char **argv)
 	int	i;
 
 	parse_args(&sim->args, argv);
-	sim->coders = malloc(sizeof(t_coder) * sim->args.num_coders);
-	sim->dongles = malloc(sizeof(t_dongle) * sim->args.num_coders);
-	if (!sim->coders || !sim->dongles)
-	{
-		free(sim->coders);
-		free(sim->dongles);
+	if (alloc_sim(sim))
 		return (1);
-	}
 	sim->flag = 0;
 	pthread_mutex_init(&sim->mutex_flag, NULL);
 	pthread_mutex_init(&sim->mutex_logging, NULL);
@@ -73,5 +88,6 @@ int	init_sim(t_global *sim, char **argv)
 	while (i < sim->args.num_coders)
 		pthread_join(sim->coders[i++].thread, NULL);
 	pthread_join(sim->monitor, NULL);
+	cleanup_sim(sim);
 	return (0);
 }
