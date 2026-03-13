@@ -62,6 +62,7 @@ typedef struct s_global
 	int				flag;
 	pthread_mutex_t	mutex_logging;
 	long			start_timestamp;
+	pthread_t 		monitor;
 }	t_global;
 
 #endif
