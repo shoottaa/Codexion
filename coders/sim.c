@@ -15,7 +15,7 @@
 
 void	init_coders(t_global *sim)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < sim->args.num_coders)
@@ -25,9 +25,11 @@ void	init_coders(t_global *sim)
 		sim->coders[i].last_compile_time = 0;
 		sim->coders[i].deadline = get_time_ms() + sim->args.time_to_burnout;
 		sim->coders[i].dongle_left = &sim->dongles[i];
-		sim->coders[i].dongle_right = &sim->dongles[(i + 1) % sim->args.num_coders];
+		sim->coders[i].dongle_right = &sim->dongles[(i + 1)
+			% sim->args.num_coders];
 		sim->coders[i].global = sim;
-		pthread_create(&sim->coders[i].thread, NULL, coder_routine, &sim->coders[i]);
+		pthread_create(&sim->coders[i].thread, NULL,
+			coder_routine, &sim->coders[i]);
 		i++;
 	}
 }
@@ -49,7 +51,7 @@ void	parse_args(t_args *args, char **argv)
 
 int	init_sim(t_global *sim, char **argv)
 {
-	int i;
+	int	i;
 
 	parse_args(&sim->args, argv);
 	sim->coders = malloc(sizeof(t_coder) * sim->args.num_coders);

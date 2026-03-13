@@ -16,6 +16,7 @@
 # include "types.h"
 # include "log.h"
 # include "dongle.h"
+# include <unistd.h>
 
 int		is_sim_active(t_global *sim);
 void	*coder_routine(void *arg);

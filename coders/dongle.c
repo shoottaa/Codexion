@@ -49,33 +49,33 @@ int	destroy_dongles(t_global *sim)
 
 // nsec = nanoseconds (1000000000 nsec = 1 sec)
 // usec = microseconds
-void    take_one_dongle(t_coder *coder, t_dongle *dongle)
+void	take_one_dongle(t_coder *coder, t_dongle *dongle)
 {
-    struct timeval		tv;
-    struct timespec   	ts;
+	struct timeval		tv;
+	struct timespec		ts;
 
-    pthread_mutex_lock(&dongle->mutex);
-    if (coder->global->args.scheduler == 1)
-        pq_push(dongle->waiters, coder, coder->deadline);
-    else
-        pq_push(dongle->waiters, coder, get_time_ms());
-    while (dongle->is_used || get_time_ms() < dongle->cooldown
-        || (dongle->waiters->size > 0
-            && dongle->waiters->node[0].coder != coder))
-    {
-        gettimeofday(&tv, NULL);
-        ts.tv_sec = tv.tv_sec;
-        ts.tv_nsec = (tv.tv_usec + 2000) * 1000;
-        if (ts.tv_nsec >= 1000000000)
-        {
-            ts.tv_sec += 1;
-            ts.tv_nsec -= 1000000000;
-        }
-        pthread_cond_timedwait(&dongle->cond, &dongle->mutex, &ts);
-    }
-    pq_pop(dongle->waiters);
-    dongle->is_used = 1;
-    pthread_mutex_unlock(&dongle->mutex);
+	pthread_mutex_lock(&dongle->mutex);
+	if (coder->global->args.scheduler == 1)
+		pq_push(dongle->waiters, coder, coder->deadline);
+	else
+		pq_push(dongle->waiters, coder, get_time_ms());
+	while (dongle->is_used || get_time_ms() < dongle->cooldown
+		|| (dongle->waiters->size > 0
+			&& dongle->waiters->node[0].coder != coder))
+	{
+		gettimeofday(&tv, NULL);
+		ts.tv_sec = tv.tv_sec;
+		ts.tv_nsec = (tv.tv_usec + 2000) * 1000;
+		if (ts.tv_nsec >= 1000000000)
+		{
+			ts.tv_sec += 1;
+			ts.tv_nsec -= 1000000000;
+		}
+		pthread_cond_timedwait(&dongle->cond, &dongle->mutex, &ts);
+	}
+	pq_pop(dongle->waiters);
+	dongle->is_used = 1;
+	pthread_mutex_unlock(&dongle->mutex);
 }
 
 void	release_dongles(t_coder *coder)
@@ -88,6 +88,8 @@ void	release_dongles(t_coder *coder)
 	dongle->cooldown = get_time_ms() + coder->global->args.dongle_cooldown;
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
+	if (coder->dongle_left == coder->dongle_right)
+		return ;
 	dongle = coder->dongle_right;
 	pthread_mutex_lock(&dongle->mutex);
 	dongle->is_used = 0;
@@ -98,6 +100,12 @@ void	release_dongles(t_coder *coder)
 
 void	take_dongles(t_coder *coder)
 {
+	if (coder->dongle_left == coder->dongle_right)
+	{
+		take_one_dongle(coder, coder->dongle_left);
+		log_action(coder->global, coder->id, "has taken a dongle");
+		return ;
+	}
 	if (coder->id % 2 == 0)
 	{
 		take_one_dongle(coder, coder->dongle_left);

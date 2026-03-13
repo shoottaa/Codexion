@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "monitor.h"
+#include "monitor.h"
 
 void	check_compile(t_global *sim)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < sim->args.num_coders)
@@ -30,7 +30,7 @@ void	check_compile(t_global *sim)
 
 void	check_burnout(t_global *sim)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < sim->args.num_coders)
@@ -38,10 +38,10 @@ void	check_burnout(t_global *sim)
 		if (get_time_ms() > sim->coders[i].deadline)
 		{
 			log_burnout(sim, sim->coders[i].id);
-            pthread_mutex_lock(&sim->mutex_flag);
-            sim->flag = 1;
+			pthread_mutex_lock(&sim->mutex_flag);
+			sim->flag = 1;
 			pthread_mutex_unlock(&sim->mutex_flag);
-            return ;
+			return ;
 		}
 		i++;
 	}

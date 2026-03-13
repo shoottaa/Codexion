@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = codexion
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 SRCDIR = coders
 SRC = $(wildcard $(SRCDIR)/*.c)
