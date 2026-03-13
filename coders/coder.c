@@ -12,18 +12,6 @@
 
 #include "coder.h"
 
-int	is_sim_active(t_global *sim)
-{
-	pthread_mutex_lock(&sim->mutex_flag);
-	if (sim->flag == 0)
-	{
-		pthread_mutex_unlock(&sim->mutex_flag);
-		return (1);
-	}
-	pthread_mutex_unlock(&sim->mutex_flag);
-	return (0);
-}
-
 void	*coder_routine(void *arg)
 {
 	t_coder		*coder;
