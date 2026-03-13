@@ -55,14 +55,14 @@ int	is_not_valid_args(int argc, char **argv)
 
 int	check_args(int argc, char **argv)
 {
-	if (argc != 10)
+	if (argc != 9)
 	{
 		ft_putstr_err("Error: Wrong number of arguments.\n");
 		return (1);
 	}
 	if (is_not_valid_args(argc, argv))
 		return (1);
-	if (strcmp(argv[9], "fifo") != 0 && strcmp(argv[9], "edf") != 0)
+	if (strcmp(argv[8], "fifo") != 0 && strcmp(argv[8], "edf") != 0)
 	{
 		ft_putstr_err("Error: Bad scheduler. Use 'fifo' or 'edf'.\n");
 		return (1);
