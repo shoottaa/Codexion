@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by [egaudich].*
+*This project has been created as part of the 42 curriculum by egaudich.*
 
 # Codexion
 
@@ -89,4 +89,5 @@ The monitor thread runs independently and never blocks on dongle acquisition. It
 - [The Dining Philosophers Problem — Wikipedia](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
 
 ### Use of AI
+
 AI was used for the purpose of understanding concepts and the subject matter. 
