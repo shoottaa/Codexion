@@ -86,16 +86,7 @@ The monitor thread runs independently and never blocks on dongle acquisition. It
 ## Resources
 
 ### Classic References
-- [POSIX Threads Programming — Lawrence Livermore National Laboratory](https://hpc-tutorials.llnl.gov/posix/)
 - [The Dining Philosophers Problem — Wikipedia](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
-- [Coffman Conditions — Wikipedia](https://en.wikipedia.org/wiki/Deadlock#Coffman_conditions)
-- [Earliest Deadline First Scheduling — Wikipedia](https://en.wikipedia.org/wiki/Earliest_deadline_first_scheduling)
-- [pthread_cond_timedwait — Linux man page](https://man7.org/linux/man-pages/man3/pthread_cond_timedwait.3p.html)
 
 ### Use of AI
-Claude (Anthropic) was used throughout this project as a learning and debugging assistant. Specifically:
-- To understand and implement the min-heap priority queue used for FIFO and EDF scheduling
-- To debug synchronization issues in `take_one_dongle`, particularly around `pthread_cond_timedwait` and cooldown handling
-- To understand the difference between `pthread_cond_wait` and `pthread_cond_timedwait` and why a timeout was necessary
-- To review the overall thread architecture and identify potential race conditions
-- To prepare for the evaluation by explaining concepts such as deadlock, starvation, race conditions, and the sift-down algorithm
+AI was used for the purpose of understanding concepts and the subject matter. 
